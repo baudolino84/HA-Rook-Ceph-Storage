@@ -1,3 +1,4 @@
 # HA-Rook-Ceph-Storage
-Home Assistant App with Rook Ceph Storage \n
+K8S Home Assistant App with Rook Ceph Storage
+
 Under development...
