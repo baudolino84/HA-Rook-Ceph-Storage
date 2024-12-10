@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homeassist-deployment
+  labels:
+    app: homeassist
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: homeassist
+  template:
+    metadata:
+      labels:
+        app: homeassist
+    spec:
+      containers:
+        - name: homeassist
+          image: homeassistant/home-assistant
+          ports:
+            - containerPort: 8123
+          volumeMounts:
+            - mountPath: "/config"
+              name: homeassist-persistent-storage
+            - mountPath: "/config/configuration.yaml"
+              subPath: "configuration.yaml"
+              name: homeassist-config
+            - mountPath: "/config/automations.yaml"
+              subPath: "automations.yaml"
+              name: homeassist-auto
+            - mountPath: "/config/scenes.yaml"
+              subPath: "scenes.yaml"
+              name: homeassist-scenes
+            - mountPath: "/config/scripts.yaml"
+              subPath: "scripts.yaml"
+              name: homeassist-scripts
+      volumes:
+        - name: homeassist-config
+          secret:
+            secretName: homeassist-config
+            defaultMode: 0777
+        - name: homeassist-auto
+          secret:
+            secretName: homeassist-auto
+            defaultMode: 0777
+        - name: homeassist-scenes
+          secret:
+            secretName: homeassist-scenes
+            defaultMode: 0777
+        - name: homeassist-scripts
+          secret:
+          secretName: homeassist-scripts
+            defaultMode: 0777
+        - name: homeassist-persistent-storage
+          persistentVolumeClaim:
+            claimName: homeassist-pv-claim
+      nodeSelector:
+          kubernetes.io/hostname: "rpi1"
