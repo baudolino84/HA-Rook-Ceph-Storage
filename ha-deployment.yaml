@@ -35,3 +35,5 @@ spec:
             claimName: homeassist-pv-claim
       nodeSelector:
           kubernetes.io/hostname: "rpi1"
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
