@@ -25,32 +25,11 @@ spec:
             - mountPath: "/config/configuration.yaml"
               subPath: "configuration.yaml"
               name: homeassist-config
-            - mountPath: "/config/automations.yaml"
-              subPath: "automations.yaml"
-              name: homeassist-auto
-            - mountPath: "/config/scenes.yaml"
-              subPath: "scenes.yaml"
-              name: homeassist-scenes
-            - mountPath: "/config/scripts.yaml"
-              subPath: "scripts.yaml"
-              name: homeassist-scripts
       volumes:
         - name: homeassist-config
           secret:
             secretName: homeassist-config
-            defaultMode: 0777
-        - name: homeassist-auto
-          secret:
-            secretName: homeassist-auto
-            defaultMode: 0777
-        - name: homeassist-scenes
-          secret:
-            secretName: homeassist-scenes
-            defaultMode: 0777
-        - name: homeassist-scripts
-          secret:
-          secretName: homeassist-scripts
-            defaultMode: 0777
+            defaultMode: 0777        
         - name: homeassist-persistent-storage
           persistentVolumeClaim:
             claimName: homeassist-pv-claim
